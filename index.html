@@ -245,9 +245,9 @@
 
     /* ─── Grid ─── */
     .project-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
     }
 
     .project {
@@ -256,23 +256,22 @@
       gap: 0;
     }
 
-    .proj-full  { grid-column: 1 / -1; }
-    .proj-left  { grid-column: 1 / 2; }
-    .proj-right { grid-column: 2 / 3; }
+    /* All projects full width — no columns */
+    .proj-full, .proj-left, .proj-right { width: 100%; }
 
     /* ─── Visual container ─── */
     .proj-visual {
       position: relative;
       width: 100%;
       overflow: hidden;
-      border-radius: 6px 6px 0 0;
-      background: #d0cdc4;
+      border-radius: 10px 10px 0 0;
+      background: #1a1a1a;
     }
 
-    .ratio-cinema { aspect-ratio: 16 / 7; }
+    .ratio-cinema { aspect-ratio: 16 / 8; }
     .ratio-wide   { aspect-ratio: 16 / 8; }
-    .ratio-tall   { aspect-ratio: 3 / 4; }
-    .ratio-square { aspect-ratio: 1 / 1; }
+    .ratio-tall   { aspect-ratio: 16 / 8; }
+    .ratio-square { aspect-ratio: 16 / 8; }
 
     .proj-visual-inner {
       position: absolute;
@@ -293,8 +292,8 @@
     /* Logo overlay */
     .proj-logo-overlay {
       position: absolute;
-      bottom: 1.2rem;
-      left: 1.4rem;
+      bottom: 1.4rem;
+      left: 1.6rem;
       z-index: 3;
       height: 28px;
       width: auto;
@@ -363,15 +362,15 @@
       background: #ffffff;
       border: 1px solid rgba(0,0,0,0.08);
       border-top: none;
-      border-radius: 0 0 6px 6px;
-      padding: 1.4rem 1.5rem 1.6rem;
+      border-radius: 0 0 10px 10px;
+      padding: 1.6rem 1.8rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
     .proj-title {
-      font-size: 1.15rem;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--fg);
@@ -524,15 +523,13 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.45);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      transition: opacity 0.25s ease;
       cursor: none;
     }
 
@@ -542,160 +539,133 @@
     }
 
     .modal-box {
-      background: #111111;
+      background: #ffffff;
       border-radius: 12px;
-      width: min(92vw, 960px);
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
+      width: min(88vw, 900px);
       overflow: hidden;
-      transform: translateY(20px) scale(0.97);
-      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 32px 100px rgba(0,0,0,0.25);
+      transform: translateY(14px);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
     }
 
     #proj-modal.open .modal-box {
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
 
-    /* Header */
+    /* ── Header ── */
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
     }
 
     .modal-project-title {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
+      color: rgba(0,0,0,0.4);
     }
 
     .modal-close {
       background: none;
       border: none;
-      color: rgba(255,255,255,0.5);
-      font-size: 1.2rem;
+      color: rgba(0,0,0,0.3);
+      font-size: 1.1rem;
       cursor: none;
+      padding: 0.2rem 0.3rem;
       line-height: 1;
-      padding: 0.2rem 0.4rem;
-      transition: color 0.2s;
+      transition: color 0.15s;
     }
+    .modal-close:hover { color: #111; }
 
-    .modal-close:hover { color: #fff; }
-
-    /* Gallery */
-    .modal-gallery {
+    /* ── Media area — strict 16:9 ── */
+    .modal-media {
       position: relative;
-      flex: 1;
-      min-height: 0;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .modal-slide {
+    .modal-media iframe,
+    .modal-media img {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    .modal-slide.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .modal-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .modal-slide iframe {
       width: 100%;
       height: 100%;
       border: none;
+      display: block;
+      object-fit: cover;
     }
 
-    /* Nav arrows */
+    /* ── Arrows overlaid on media ── */
     .modal-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       z-index: 10;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.35);
       color: #fff;
-      font-size: 1.6rem;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
+      font-size: 1.3rem;
       cursor: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: background 0.15s;
       line-height: 1;
     }
-
-    .modal-nav:hover { background: rgba(255,255,255,0.22); }
-    .modal-nav.hidden { display: none; }
-
-    #modal-prev { left: 1rem; }
+    .modal-nav:hover    { background: rgba(255,255,255,0.32); }
+    .modal-nav:disabled { opacity: 0.25; }
+    #modal-prev { left:  1rem; }
     #modal-next { right: 1rem; }
 
-    /* Footer */
+    /* ── Footer ── */
     .modal-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
+      padding: 0.8rem 1.4rem;
+      border-top: 1px solid rgba(0,0,0,0.07);
     }
 
     .modal-counter {
       font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.35);
-      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.08em;
+      color: rgba(0,0,0,0.3);
     }
 
     .modal-dots {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.45rem;
+      align-items: center;
     }
 
     .modal-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.18);
+      border: none;
+      padding: 0;
+      cursor: none;
       transition: background 0.2s, transform 0.2s;
     }
-
     .modal-dot.active {
-      background: #fff;
-      transform: scale(1.2);
+      background: #111;
+      transform: scale(1.3);
     }
 
-    /* Gallery height */
-    @media (min-width: 769px) {
-      .modal-gallery { height: 500px; }
-    }
-    @media (max-width: 768px) {
-      .modal-gallery { height: 55vw; min-height: 220px; }
+    /* empty right slot to balance footer */
+    .modal-footer-right {
+      width: 60px;
     }
   </style>
 </head>
@@ -927,13 +897,14 @@
         <span class="modal-project-title" id="modal-title"></span>
         <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
       </div>
-      <div class="modal-gallery" id="modal-gallery">
-        <button class="modal-nav hidden" id="modal-prev">‹</button>
-        <button class="modal-nav hidden" id="modal-next">›</button>
+      <div class="modal-media" id="modal-media">
+        <button class="modal-nav" id="modal-prev" aria-label="Previous">‹</button>
+        <button class="modal-nav" id="modal-next" aria-label="Next">›</button>
       </div>
       <div class="modal-footer">
         <span class="modal-counter" id="modal-counter"></span>
         <div class="modal-dots" id="modal-dots"></div>
+        <div class="modal-footer-right"></div>
       </div>
     </div>
   </div>
@@ -944,149 +915,142 @@
     pv1: {
       title: 'YoPRO Epic Challenge',
       slides: [
-        { type: 'iframe', src: 'https://play.gumlet.io/embed/69bf22b04fe0bcfaae46a4b7?background=false&autoplay=false&loop=false&disable_player_controls=false' },
-        { type: 'image', src: 'https://placehold.co/960x540/1a1a1a/ffffff?text=YoPRO+%E2%80%94+Slide+2' },
-        { type: 'image', src: 'https://placehold.co/960x540/1a1a1a/ffffff?text=YoPRO+%E2%80%94+Slide+3' },
+        { type: 'video', src: 'https://play.gumlet.io/embed/69bf22b04fe0bcfaae46a4b7?background=false&autoplay=false&loop=false&disable_player_controls=false' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=YoPRO+%E2%80%94+Image+1' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=YoPRO+%E2%80%94+Image+2' },
       ]
     },
     pv2: {
       title: 'Luxury Editorial Direction',
       slides: [
-        { type: 'image', src: 'https://placehold.co/960x540/0f0f0f/ffffff?text=Editorial+%E2%80%94+Slide+1' },
-        { type: 'image', src: 'https://placehold.co/960x540/0f0f0f/ffffff?text=Editorial+%E2%80%94+Slide+2' },
-        { type: 'image', src: 'https://placehold.co/960x540/0f0f0f/ffffff?text=Editorial+%E2%80%94+Slide+3' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Editorial+%E2%80%94+Image+1' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Editorial+%E2%80%94+Image+2' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Editorial+%E2%80%94+Image+3' },
       ]
     },
     pv3: {
       title: 'SAE Barcelona',
       slides: [
-        { type: 'iframe', src: 'https://play.gumlet.io/embed/69befc5661788532c93f8c8d?background=false&autoplay=false&loop=false&disable_player_controls=false' },
-        { type: 'image', src: 'https://placehold.co/960x540/0d1117/ffffff?text=SAE+%E2%80%94+Slide+2' },
+        { type: 'video', src: 'https://play.gumlet.io/embed/69befc5661788532c93f8c8d?background=false&autoplay=false&loop=false&disable_player_controls=false' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=SAE+%E2%80%94+Image+1' },
       ]
     },
     pv4: {
       title: 'Digital Content Strategy',
       slides: [
-        { type: 'image', src: 'https://placehold.co/960x540/111820/ffffff?text=Strategy+%E2%80%94+Slide+1' },
-        { type: 'image', src: 'https://placehold.co/960x540/111820/ffffff?text=Strategy+%E2%80%94+Slide+2' },
-        { type: 'image', src: 'https://placehold.co/960x540/111820/ffffff?text=Strategy+%E2%80%94+Slide+3' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Strategy+%E2%80%94+Image+1' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Strategy+%E2%80%94+Image+2' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Strategy+%E2%80%94+Image+3' },
       ]
     },
     pv5: {
       title: 'Social Content Direction',
       slides: [
-        { type: 'image', src: 'https://placehold.co/960x540/16100a/ffffff?text=Social+%E2%80%94+Slide+1' },
-        { type: 'image', src: 'https://placehold.co/960x540/16100a/ffffff?text=Social+%E2%80%94+Slide+2' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Social+%E2%80%94+Image+1' },
+        { type: 'image', src: 'https://placehold.co/1280x720/f0f0f0/999999?text=Social+%E2%80%94+Image+2' },
       ]
     },
   };
 
-  // ── MODAL LOGIC ───────────────────────────────────────────
+  // ── MODAL STATE ───────────────────────────────────────────
   const modal     = document.getElementById('proj-modal');
-  const modalTitle= document.getElementById('modal-title');
-  const gallery   = document.getElementById('modal-gallery');
+  const titleEl   = document.getElementById('modal-title');
+  const mediaEl   = document.getElementById('modal-media');
+  const dotsEl    = document.getElementById('modal-dots');
+  const counterEl = document.getElementById('modal-counter');
   const prevBtn   = document.getElementById('modal-prev');
   const nextBtn   = document.getElementById('modal-next');
-  const counter   = document.getElementById('modal-counter');
-  const dotsEl    = document.getElementById('modal-dots');
   const closeBtn  = document.getElementById('modal-close-btn');
 
-  let slides = [], current = 0;
+  let currentProj = null, currentIdx = 0;
 
-  function buildSlides(projId) {
-    const proj = PROJECTS[projId];
-    if (!proj) return;
+  // The content slot (everything except the nav buttons)
+  let contentEl = null;
 
-    // Remove old slides (keep nav buttons)
-    gallery.querySelectorAll('.modal-slide').forEach(s => s.remove());
-    dotsEl.innerHTML = '';
-    slides = [];
+  function renderSlide(proj, idx) {
+    // Remove previous content, keep buttons
+    if (contentEl) contentEl.remove();
 
-    proj.slides.forEach((s, i) => {
-      const div = document.createElement('div');
-      div.className = 'modal-slide' + (i === 0 ? ' active' : '');
+    const slide = proj.slides[idx];
+    contentEl = document.createElement(slide.type === 'video' ? 'iframe' : 'img');
 
-      if (s.type === 'iframe') {
-        const ifr = document.createElement('iframe');
-        ifr.src = s.src;
-        ifr.allow = 'autoplay; fullscreen';
-        ifr.allowFullscreen = true;
-        div.appendChild(ifr);
-      } else {
-        const img = document.createElement('img');
-        img.src = s.src;
-        img.alt = proj.title + ' — slide ' + (i + 1);
-        div.appendChild(img);
-      }
+    if (slide.type === 'video') {
+      contentEl.src = slide.src;
+      contentEl.setAttribute('loading', 'lazy');
+      contentEl.setAttribute('referrerpolicy', 'origin');
+      contentEl.setAttribute('allow', 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen');
+      contentEl.allowFullscreen = true;
+    } else {
+      contentEl.src = slide.src;
+      contentEl.alt = proj.title + ' — ' + (idx + 1);
+    }
 
-      gallery.appendChild(div);
-      slides.push(div);
+    // Insert before the nav buttons
+    mediaEl.insertBefore(contentEl, prevBtn);
 
-      const dot = document.createElement('button');
-      dot.className = 'modal-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-      dot.addEventListener('click', () => goTo(i));
-      dotsEl.appendChild(dot);
-    });
+    // Dots
+    Array.from(dotsEl.children).forEach((d, i) =>
+      d.classList.toggle('active', i === idx)
+    );
 
-    modalTitle.textContent = proj.title;
-    current = 0;
-    updateUI();
-  }
+    // Counter
+    counterEl.textContent = proj.slides.length > 1
+      ? (idx + 1) + ' / ' + proj.slides.length : '';
 
-  function goTo(idx) {
-    // Stop any playing iframes when leaving
-    slides[current].querySelectorAll('iframe').forEach(f => {
-      f.src = f.src; // reload to stop playback
-    });
-
-    slides[current].classList.remove('active');
-    dotsEl.children[current].classList.remove('active');
-    current = (idx + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dotsEl.children[current].classList.add('active');
-    updateUI();
-  }
-
-  function updateUI() {
-    counter.textContent = slides.length > 1 ? (current + 1) + ' / ' + slides.length : '';
-    prevBtn.classList.toggle('hidden', slides.length <= 1);
-    nextBtn.classList.toggle('hidden', slides.length <= 1);
+    // Nav state
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === proj.slides.length - 1;
   }
 
   function openModal(projId) {
-    buildSlides(projId);
+    currentProj = PROJECTS[projId];
+    if (!currentProj) return;
+    currentIdx = 0;
+    titleEl.textContent = currentProj.title;
+
+    // Build dots
+    dotsEl.innerHTML = '';
+    currentProj.slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'modal-dot';
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.addEventListener('click', () => { currentIdx = i; renderSlide(currentProj, currentIdx); });
+      dotsEl.appendChild(d);
+    });
+
+    renderSlide(currentProj, 0);
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
-    // Stop video on close
-    slides[current]?.querySelectorAll('iframe').forEach(f => { f.src = f.src; });
     modal.classList.remove('open');
     document.body.style.overflow = '';
+    setTimeout(() => { if (contentEl) { contentEl.remove(); contentEl = null; } }, 300);
   }
 
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
-  closeBtn.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', e => {
-    if (e.target === modal) closeModal();
+  prevBtn.addEventListener('click', () => {
+    if (currentIdx > 0) { currentIdx--; renderSlide(currentProj, currentIdx); }
   });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIdx < currentProj.slides.length - 1) { currentIdx++; renderSlide(currentProj, currentIdx); }
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
-    if (e.key === 'Escape')     closeModal();
-    if (e.key === 'ArrowRight') goTo(current + 1);
-    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight' && currentIdx < currentProj.slides.length - 1) { currentIdx++; renderSlide(currentProj, currentIdx); }
+    if (e.key === 'ArrowLeft'  && currentIdx > 0) { currentIdx--; renderSlide(currentProj, currentIdx); }
   });
 
-  // ── Wire up project visuals ───────────────────────────────
+  // ── Wire clicks on project cards ─────────────────────────
   document.querySelectorAll('[data-project]').forEach(proj => {
     const id = proj.dataset.project;
     proj.querySelectorAll('.clickable').forEach(el => {
-      el.style.cursor = 'none';
       el.addEventListener('click', () => openModal(id));
     });
   });
