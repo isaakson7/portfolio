@@ -165,6 +165,19 @@
     /* Spacer: pushes scroll past the fixed hero */
     .hero-spacer { height: 85vh; }
 
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero__bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.6;
+    }
+
     .hero__photo {
       position: absolute;
       bottom: 0; left: 50%;
@@ -305,6 +318,32 @@
     }
     .mobile-menu__icon svg { width: 18px; height: 18px; }
     .mobile-menu__icon:hover { background: var(--ink); color: var(--bg); }
+
+    .mobile-menu__lang {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 32px;
+    }
+    .mobile-menu__lang button {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .mobile-menu__lang button.active {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .mobile-menu__lang-sep {
+      font-size: 12px;
+      color: var(--faint);
+    }
+
 
     /* ══════════════════════════════
        HERO RESPONSIVE (tablet)
@@ -754,7 +793,7 @@
       }
 
       /* Lang in mobile nav */
-      .nav__lang--mobile { display: none; }
+      .nav__lang--mobile { display: flex; align-items: center; gap: 4px; }
 
       .nav__hamburger {
         background: none; border: none;
@@ -834,7 +873,12 @@
         position: absolute;
         background: #f0efe9;
         border-radius: 14px;
-        /* placeholder: replace with <img> */
+        overflow: hidden;
+        opacity: 0.5;
+      }
+      .hero__static-card img {
+        width: 100%; height: 100%;
+        object-fit: cover; display: block;
       }
 
       /* Positions match the design layout */
@@ -844,6 +888,8 @@
       .hero__static-card--4 { width: 18vw; height: 22vw; top: 38%; right: 4%; }
       .hero__static-card--5 { width: 13vw; height: 16vw; top: 38%; right: 27%;}
       .hero__static-card--6 { width: 14vw; height: 17vw; top: 56%; left: 2%;  }
+      .hero__static-card--7 { width: 17vw; height: 21vw; top: 58%; left: 20%; }
+      .hero__static-card--8 { width: 17vw; height: 21vw; top: 68%; right: 10%;  }
 
       /* ── Projects: swipeable carousel, no arrows ── */
       .projects__count { display: none; }
@@ -979,7 +1025,7 @@
 
     <!-- Desktop nav -->
     <ul class="nav__links">
-      <li><a href="#work" data-i18n="work">Work</a></li>
+      <li><a href="#work" data-i18n="work" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'});return false;">Work</a></li>
       <li><a href="services.html" data-i18n="services">Services</a></li>
       <li><a href="about.html" data-i18n="about">About</a></li>
     </ul>
@@ -989,7 +1035,7 @@
         <span class="nav__lang-sep">/</span>
         <button id="lang-en" class="active" onclick="setLang('en')">EN</button>
       </div>
-      <a href="#contact" class="nav__contact" data-i18n="contact">Contact</a>
+      <a href="mailto:isaac.gracia7@gmail.com" class="nav__contact" data-i18n="contact">Contact</a>
     </div>
 
     <!-- Mobile: lang + hamburger -->
@@ -1018,16 +1064,13 @@
       <a href="#work"         class="mobile-menu__link" data-i18n="work"     onclick="closeMenu(); setTimeout(()=>document.getElementById('work').scrollIntoView({behavior:'smooth'}),50)">Work</a>
       <a href="services.html" class="mobile-menu__link" data-i18n="services" onclick="closeMenu()">Services</a>
       <a href="about.html"    class="mobile-menu__link" data-i18n="about"    onclick="closeMenu()">About</a>
-      <a href="#contact"   class="mobile-menu__link" data-i18n="contact" onclick="closeMenu()">Contact</a>
+      <a href="mailto:isaac.gracia7@gmail.com" class="mobile-menu__link" data-i18n="contact" onclick="closeMenu()">Contact</a>
     </nav>
     <div class="mobile-menu__social">
-      <a href="https://linkedin.com" class="mobile-menu__icon" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <a href="https://www.linkedin.com/in/isaacgrc/" class="mobile-menu__icon" target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       </a>
-      <a href="https://x.com" class="mobile-menu__icon" target="_blank" rel="noopener" aria-label="Twitter / X">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L2.25 2.25h6.833l4.259 5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="mailto:hello@isaacgracia.com" class="mobile-menu__icon" aria-label="Email">
+      <a href="mailto:isaac.gracia7@gmail.com" class="mobile-menu__icon" aria-label="Email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       </a>
     </div>
@@ -1037,6 +1080,10 @@
        HERO (fixed full-screen)
   ═══════════════════════════════ -->
   <section class="hero" id="hero">
+
+    <div class="hero__bg">
+      <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/background-01.jpg" alt="" role="presentation" decoding="async">
+    </div>
 
     <div class="hero__photo">
       <!-- Placeholder: hero-photo.jpg (PNG fondo eliminado) -->
@@ -1059,12 +1106,14 @@
 
     <!-- Mobile static cards (scattered around photo) -->
     <div class="hero__static-cards" aria-hidden="true">
-      <div class="hero__static-card hero__static-card--1"><!-- placeholder --></div>
-      <div class="hero__static-card hero__static-card--2"><!-- placeholder --></div>
-      <div class="hero__static-card hero__static-card--3"><!-- placeholder --></div>
-      <div class="hero__static-card hero__static-card--4"><!-- placeholder --></div>
-      <div class="hero__static-card hero__static-card--5"><!-- placeholder --></div>
-      <div class="hero__static-card hero__static-card--6"><!-- placeholder --></div>
+      <div class="hero__static-card hero__static-card--1"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--2"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--3"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--4"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--5"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--6"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--7"><img src="" alt="" decoding="async"></div>
+      <div class="hero__static-card hero__static-card--8"><img src="" alt="" decoding="async"></div>
     </div>
 
     <div id="scroll-hint">
@@ -1083,7 +1132,7 @@
   <section class="projects" id="work">
 
     <div class="projects__header">
-      <span class="projects__label" data-i18n="selected_projects">Selected Projects</span>
+      <span class="projects__label"></span>
       <span class="projects__count" data-i18n="works_count">5 works</span>
     </div>
 
@@ -1091,10 +1140,10 @@
 
       <div class="projects__sidebar">
         <div>
-          <h2 class="projects__sidebar-title" data-i18n="sidebar_title">Section Title</h2>
+          <h2 class="projects__sidebar-title" data-i18n="sidebar_title">Selected Projects</h2>
           <div class="projects__sidebar-text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p data-i18n="sidebar_p1">A selection of brand and content projects spanning social media strategy, campaign storytelling, and digital communication — from independent initiatives to global brands.</p>
+            <p data-i18n="sidebar_p2">Each project reflects a commitment to culturally relevant content, community engagement, and measurable impact.</p>
           </div>
         </div>
         <div class="projects__arrows">
@@ -1112,12 +1161,11 @@
 
           <article class="project-card" data-index="0">
             <div class="project-card__img">
-              <!-- Placeholder: assets/projects/yopro.jpg -->
-              <div class="project-card__img-placeholder">Project image</div>
+              <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/yopro-portada1.svg" alt="YoPRO Epic Challenge">
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">YoPRO Epic Challenge</h3>
-              <p class="project-card__desc" data-i18n="yopro_desc">I led a project for YoPRO, a protein yogurt for athletes. The brand wanted to make a statement with an impactful action. We achieved this alongside the sports influencer Valentí Sanjuan, who helped Àlex Roca accomplish a seemingly impossible challenge: completing a marathon with cerebral palsy.</p>
+              <p class="project-card__desc" data-i18n="yopro_desc">I led the social media strategy for Danone's new brand, YoPRO, a protein yogurt for athletes. Our challenge was to raise brand awareness and grow their community.</p>
               <div class="project-card__meta">
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Year</span>
@@ -1137,70 +1185,67 @@
 
           <article class="project-card" data-index="1">
             <div class="project-card__img">
-              <!-- Placeholder: assets/projects/project-02.jpg -->
-              <div class="project-card__img-placeholder">Project image</div>
+              <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/jagermeister-portada1.svg" alt="Hunt or Be Hunted">
             </div>
             <div class="project-card__body">
-              <h3 class="project-card__title">Project Two</h3>
-              <p class="project-card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+              <h3 class="project-card__title">Hunt or Be Hunted</h3>
+              <p class="project-card__desc" data-i18n="jager_desc">1,600 volunteers, more than 100 skins, and two months of tattooing to create something irreversible: the first animated short film made entirely with tattoos. 'Hunt or Be Hunted,' a 2016 campaign by Jägermeister, turned human bodies into stop-motion frames, translating the brand's philosophy of instinct and commitment into a physical medium. Over two months, participants were tattooed with fragments of an illustrated narrative, later photographed and sequenced into a film. I led the social media strategy for the campaign in Spain as part of VICE Virtue, focusing on amplifying the process as much as the final piece—documenting the people, endurance, and scale behind each frame to drive cultural relevance and sustained engagement.</p>
               <div class="project-card__meta">
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Year</span>
-                  <span class="project-card__meta-value">2023</span>
+                  <span class="project-card__meta-value">2016</span>
                 </div>
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Client</span>
-                  <span class="project-card__meta-value">Client · Industry</span>
+                  <span class="project-card__meta-value">Jagermeister · Food & Drinks</span>
                 </div>
               </div>
               <div class="project-card__tags">
-                <span class="project-card__tag">Copywriting</span>
-                <span class="project-card__tag">Editorial</span>
+                <span class="project-card__tag">Content Strategy</span>
+                <span class="project-card__tag">Social Media</span>
               </div>
             </div>
           </article>
 
           <article class="project-card" data-index="2">
             <div class="project-card__img">
-              <!-- Placeholder: assets/projects/project-03.jpg -->
-              <div class="project-card__img-placeholder">Project image</div>
+              <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/sae-portada1.svg" alt="SAE Rebrand">
             </div>
             <div class="project-card__body">
-              <h3 class="project-card__title">Project Three</h3>
-              <p class="project-card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+              <h3 class="project-card__title">SAE Rebrand</h3>
+              <p class="project-card__desc" data-i18n="sae_desc">At SAE Institute, I was responsible for leading the center's communications to attract new students to its Creative Media programs. My role focused on shaping the brand's messaging across digital channels and supporting the repositioning and rebranding of the institute to better connect with prospective students and the creative community.</p>
               <div class="project-card__meta">
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Year</span>
-                  <span class="project-card__meta-value">2024</span>
+                  <span class="project-card__meta-value">2021</span>
                 </div>
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Client</span>
-                  <span class="project-card__meta-value">Client · Industry</span>
+                  <span class="project-card__meta-value">SAE Creative Media Education</span>
                 </div>
               </div>
               <div class="project-card__tags">
-                <span class="project-card__tag">Social Media</span>
                 <span class="project-card__tag">Brand Voice</span>
+                <span class="project-card__tag">Editorial</span>
               </div>
             </div>
           </article>
 
           <article class="project-card" data-index="3">
             <div class="project-card__img">
-              <!-- Placeholder: assets/projects/project-04.jpg -->
-              <div class="project-card__img-placeholder">Project image</div>
+              <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/topmanta-01.svg" alt="Illegal People, Legal Clothes">
             </div>
             <div class="project-card__body">
-              <h3 class="project-card__title">Project Four</h3>
-              <p class="project-card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+              <h3 class="project-card__title">Illegal People, Legal Clothes</h3>
+              <p class="project-card__desc" data-i18n="topmanta_desc">I collaborated on the Top Manta project during its fundraising phase, supporting the storytelling and visibility of the campaign that helped the collective of street vendors in Barcelona launch their own clothing brand. The initiative mobilized public support and raised the capital needed to start a social fashion project built around dignity, self-employment, and migrant rights.</p>
               <div class="project-card__meta">
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Year</span>
-                  <span class="project-card__meta-value">2024</span>
+                  <span class="project-card__meta-value">2020</span>
                 </div>
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Client</span>
-                  <span class="project-card__meta-value">Client · Industry</span>
+                  <span class="project-card__meta-value">TOP MANTA · Retail</span>
                 </div>
               </div>
               <div class="project-card__tags">
@@ -1211,25 +1256,25 @@
 
           <article class="project-card" data-index="4">
             <div class="project-card__img">
-              <!-- Placeholder: assets/projects/project-05.jpg -->
-              <div class="project-card__img-placeholder">Project image</div>
+              <img src="https://raw.githubusercontent.com/isaakson7/portfolio/main/zigchain-cover03.svg" alt="ZIGChain Summit 2026">
             </div>
             <div class="project-card__body">
-              <h3 class="project-card__title">Project Five</h3>
-              <p class="project-card__desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris.</p>
+              <h3 class="project-card__title">ZIGChain Summit 2026</h3>
+              <p class="project-card__desc" data-i18n="zigchain_desc">I led the content strategy, brand voice, and social media for ZIGChain Summit 2026 — the brand's flagship event in the Web3 space. My role covered the full communications arc: from pre-event build-up and speaker amplification to live coverage and post-event content. The goal was to translate complex blockchain concepts into community-driven storytelling, positioning ZIGChain as a thought leader within the Web3 ecosystem while driving engagement across channels and expanding the brand's reach beyond its existing audience.</p>
               <div class="project-card__meta">
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Year</span>
-                  <span class="project-card__meta-value">2025</span>
+                  <span class="project-card__meta-value">2026</span>
                 </div>
                 <div class="project-card__meta-item">
                   <span class="project-card__meta-label">Client</span>
-                  <span class="project-card__meta-value">Client · Industry</span>
+                  <span class="project-card__meta-value">ZIGChain · Web3</span>
                 </div>
               </div>
               <div class="project-card__tags">
+                <span class="project-card__tag">Content Strategy</span>
                 <span class="project-card__tag">Brand Voice</span>
-                <span class="project-card__tag">Editorial</span>
+                <span class="project-card__tag">Social Media</span>
               </div>
             </div>
           </article>
@@ -1245,14 +1290,13 @@
   ═══════════════════════════════ -->
   <footer class="footer" id="contact">
     <div class="footer__cta">
-      <a href="#contact" class="footer__cta-link">
+      <a href="mailto:isaac.gracia7@gmail.com" class="footer__cta-link">
         <p class="footer__cta-text">Let's work<br><em>together</em><span class="footer__period-wrap">.<span class="footer__garabato" id="footer-garabato"></span></span></p>
       </a>
     </div>
     <div class="footer__right">
       <nav class="footer__links" aria-label="Social links">
-        <a href="https://linkedin.com" class="footer__link" target="_blank" rel="noopener">Linkedin</a>
-        <a href="https://x.com" class="footer__link" target="_blank" rel="noopener">Twitter / X</a>
+        <a href="https://www.linkedin.com/in/isaacgrc/" class="footer__link" target="_blank" rel="noopener">Linkedin</a>
       </nav>
       <span class="footer__copy">© Isaac Gracià 2026</span>
     </div>
@@ -1320,29 +1364,43 @@
   'use strict';
 
   // ── Cursor trail cards ───────────────────────────────────────────
-  const projects = [
-    { img: 'assets/projects/yopro.jpg' },
-    { img: 'assets/projects/project-02.jpg' },
-    { img: 'assets/projects/project-03.jpg' },
-    { img: 'assets/projects/project-04.jpg' },
-    { img: 'assets/projects/project-05.jpg' },
-  ];
+  const trailImgs = Array.from({ length: 17 }, (_, i) =>
+    `https://raw.githubusercontent.com/isaakson7/portfolio/main/cursor-trail-${String(i + 1).padStart(2, '0')}.svg`
+  );
 
   (function () {
     if (!window.matchMedia('(pointer: fine)').matches) return;
 
     const hero = document.getElementById('hero');
-    const N = 7, SPACING = 8, Z_FRONT = 30, Z_BACK = 4, STOP_DELAY = 150, SETTLE_MS = 2200;
+    const N = 7, SPACING = 8, Z_FRONT = 30, Z_BACK = 10, STOP_DELAY = 150, SETTLE_MS = 2200;
 
-    const cards = Array.from({ length: N }, (_, i) => {
-      const p  = projects[i % projects.length];
+    // Preload all images into browser cache immediately
+    trailImgs.forEach(src => { const img = new Image(); img.src = src; });
+
+    // Pick N unique random images from the pool
+    function pickRandom(pool, n) {
+      const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, n);
+    }
+
+    const cards = Array.from({ length: N }, () => {
       const el = document.createElement('div');
       el.className = 'cursor-card';
       el.setAttribute('aria-hidden', 'true');
-      el.innerHTML = `<img src="${p.img}" alt="" loading="lazy" decoding="async">`;
+      el.innerHTML = `<img src="" alt="" decoding="async">`;
       hero.appendChild(el);
       return el;
     });
+
+    // Assign a fresh random set of images to all cards
+    function shuffleCardImages() {
+      const picked = pickRandom(trailImgs, N);
+      cards.forEach((el, i) => {
+        el.querySelector('img').src = picked[i];
+      });
+    }
+
+    shuffleCardImages();
 
     let hist = [], frozenHist = null, settleFromIdx = [];
     let goRight = true, lastX = 0, lastMove = 0, inside = false;
@@ -1354,6 +1412,7 @@
       lastMove = Date.now(); inside = true;
       hist.unshift({ x: e.clientX - r.left, y: e.clientY - r.top });
       if (hist.length > N * SPACING + 60) hist.pop();
+      if (phase !== 'active') shuffleCardImages();
       phase = 'active';
     }, { passive: true });
 
@@ -1377,10 +1436,9 @@
           if (hi >= hist.length) { el.style.opacity = '0'; return; }
           const p = hist[hi];
           const tilt = (i - 1) * (goRight ? 1.8 : -1.8);
-          const alpha = 1 - (i / N) * 0.55;
           el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
           el.style.transform = `translate(-50%,-50%) rotate(${tilt}deg)`;
-          el.style.opacity = alpha.toFixed(3);
+          el.style.opacity = '1';
           el.style.zIndex = goRight ? String(Z_FRONT + (N - i)) : String(Z_BACK - (N - i));
         });
       } else if (phase === 'settling') {
@@ -1392,11 +1450,10 @@
           const idx = Math.round(fromIdx * (1 - t));
           const p = frozenHist[idx] || frozenHist[0];
           const tilt = (i - 1) * (settleGoRight ? 1.8 : -1.8) * (1 - t);
-          const trailA = 1 - (i / N) * 0.55;
           const fadeT = Math.max(0, (progress - 0.70) / 0.30);
           el.style.left = p.x + 'px'; el.style.top = p.y + 'px';
           el.style.transform = `translate(-50%,-50%) rotate(${tilt}deg)`;
-          el.style.opacity = (trailA * (1 - fadeT)).toFixed(3);
+          el.style.opacity = (1 - fadeT).toFixed(3);
           el.style.zIndex = String(Z_FRONT - i);
         });
         if (progress >= 1) { phase = 'idle'; frozenHist = null; }
@@ -1412,8 +1469,28 @@
   let currentLang = localStorage.getItem('lang') || 'en';
 
   const i18n = {
-    es: { work: 'Proyectos', services: 'Servicios', about: 'Sobre mí', contact: 'Contacta', selected_projects: 'Proyectos Seleccionados', sidebar_title: 'Título de Sección', works_count: '5 proyectos', yopro_desc: 'Lideré un proyecto para YoPRO, un yogur proteico para deportistas. La marca quería hacer una declaración de intenciones con una acción de impacto. Lo logramos junto al influencer deportivo Valentí Sanjuan, que ayudó a Àlex Roca a superar un reto aparentemente imposible: completar una maratón con parálisis cerebral.' },
-    en: { work: 'Work',      services: 'Services',  about: 'About',    contact: 'Contact',  selected_projects: 'Selected Projects',      sidebar_title: 'Section Title', works_count: '5 works', yopro_desc: 'I led a project for YoPRO, a protein yogurt for athletes. The brand wanted to make a statement with an impactful action. We achieved this alongside the sports influencer Valentí Sanjuan, who helped Àlex Roca accomplish a seemingly impossible challenge: completing a marathon with cerebral palsy.' }
+    es: {
+      work: 'Proyectos', services: 'Servicios', about: 'Sobre mí', contact: 'Contacta',
+      selected_projects: 'Marcas', sidebar_title: 'Proyectos Destacados', works_count: '5 proyectos',
+      sidebar_p1: 'Una selección de proyectos de marca y contenido que abarca estrategia en redes sociales, storytelling de campaña y comunicación digital — desde iniciativas independientes hasta marcas globales.',
+      sidebar_p2: 'Cada proyecto refleja un compromiso con el contenido culturalmente relevante, el engagement de comunidad y el impacto medible.',
+      yopro_desc: 'Lideré la estrategia de redes sociales de la nueva marca de Danone, YoPRO, un yogur proteico para deportistas. Nuestro reto era aumentar el conocimiento de marca y hacer crecer su comunidad. La Marató de Barcelona presentó una gran oportunidad para aprovechar el mensaje de marca y hacer una declaración que conectara con su audiencia. Lo logramos junto a Valentí Sanjuan y Álex Roca, que se propusieron superar un reto aparentemente imposible: completar una maratón con parálisis cerebral. La acción se viralizó y tuvo un impacto enorme en redes sociales. YoPRO superó los 40K seguidores y, lo más importante, ayudamos a Álex a visibilizar su enfermedad en multitud de programas de televisión en prime time, dejando claro que, como YoPRO, el único límite es el que uno mismo se pone.',
+      jager_desc: '1.600 voluntarios, más de 100 pieles y dos meses de tatuajes para crear algo irreversible: el primer cortometraje de animación hecho íntegramente con tatuajes. \'Hunt or Be Hunted\' —campaña de Jägermeister de 2016— convirtió cuerpos humanos en fotogramas de stop-motion, traduciendo la filosofía de instinto y compromiso de la marca en un soporte físico. Durante dos meses, los participantes fueron tatuados con fragmentos de una narrativa ilustrada que se fotografió y secuenció para crear el filme. Lideré la estrategia de redes sociales de la campaña en España como parte de VICE Virtue, con el foco en amplificar el proceso tanto como la pieza final: documentando a las personas, la resistencia y la escala que había detrás de cada fotograma para generar relevancia cultural y engagement sostenido.',
+      topmanta_desc: 'Colaboré en el proyecto Top Manta durante su fase de recaudación de fondos, apoyando el storytelling y la visibilidad de la campaña que ayudó al colectivo de manteros de Barcelona a lanzar su propia marca de ropa. La iniciativa movilizó el apoyo ciudadano y recaudó el capital necesario para poner en marcha un proyecto de moda social basado en la dignidad, el autoempleo y los derechos de los migrantes.',
+      sae_desc: 'En SAE Institute, fui responsable de liderar las comunicaciones del centro para atraer nuevos estudiantes a sus programas de Creative Media. Mi rol se centró en dar forma al mensaje de marca en los canales digitales y en apoyar el reposicionamiento y rebranding del instituto para conectar mejor con los futuros estudiantes y la comunidad creativa.',
+      zigchain_desc: 'Lideré la estrategia de contenido, brand voice y redes sociales del ZIGChain Summit 2026, el evento estrella de la marca en el espacio Web3. Mi rol abarcó todo el arco comunicativo: desde la construcción previa al evento y la amplificación de ponentes hasta la cobertura en directo y el contenido post-evento. El objetivo era traducir conceptos complejos de blockchain en storytelling orientado a la comunidad, posicionando a ZIGChain como referente en el ecosistema Web3 e impulsando el engagement en todos los canales.',
+    },
+    en: {
+      work: 'Work', services: 'Services', about: 'About', contact: 'Contact',
+      selected_projects: 'Brands', sidebar_title: 'Selected Projects', works_count: '5 works',
+      sidebar_p1: 'A selection of brand and content projects spanning social media strategy, campaign storytelling, and digital communication — from independent initiatives to global brands.',
+      sidebar_p2: 'Each project reflects a commitment to culturally relevant content, community engagement, and measurable impact.',
+      yopro_desc: 'I led the social media strategy for Danone\'s new brand, YoPRO, a protein yogurt for athletes. Our challenge was to raise brand awareness and grow their community. Marató Barcelona presented a great opportunity to leverage the brand message and make a statement that would connect with their audience. We achieved this alongside Valentí Sanjuan and Álex Roca, who set out to accomplish a seemingly impossible challenge: completing a marathon while living with cerebral palsy. The action went viral; the brand had a huge impact on social media. YoPRO gained over 40K followers, and most importantly, we managed to help Álex raise awareness of his illness on countless prime-time TV shows by talking about his feat, making it clear that, like YoPRO, the only limit is the one you set for yourself.',
+      jager_desc: '1,600 volunteers, more than 100 skins, and two months of tattooing to create something irreversible: the first animated short film made entirely with tattoos. \'Hunt or Be Hunted,\' a 2016 campaign by Jägermeister, turned human bodies into stop-motion frames, translating the brand\'s philosophy of instinct and commitment into a physical medium. Over two months, participants were tattooed with fragments of an illustrated narrative, later photographed and sequenced into a film. I led the social media strategy for the campaign in Spain as part of VICE Virtue, focusing on amplifying the process as much as the final piece—documenting the people, endurance, and scale behind each frame to drive cultural relevance and sustained engagement.',
+      topmanta_desc: 'I collaborated on the Top Manta project during its fundraising phase, supporting the storytelling and visibility of the campaign that helped the collective of street vendors in Barcelona launch their own clothing brand. The initiative mobilized public support and raised the capital needed to start a social fashion project built around dignity, self-employment, and migrant rights.',
+      sae_desc: 'At SAE Institute, I was responsible for leading the center\'s communications to attract new students to its Creative Media programs. My role focused on shaping the brand\'s messaging across digital channels and supporting the repositioning and rebranding of the institute to better connect with prospective students and the creative community.',
+      zigchain_desc: 'I led the content strategy, brand voice, and social media for ZIGChain Summit 2026 — the brand\'s flagship event in the Web3 space. My role covered the full communications arc: from pre-event build-up and speaker amplification to live coverage and post-event content. The goal was to translate complex blockchain concepts into community-driven storytelling, positioning ZIGChain as a thought leader within the Web3 ecosystem while driving engagement across channels and expanding the brand\'s reach beyond its existing audience.',
+    }
   };
 
   function setLang(lang) {
@@ -1429,8 +1506,15 @@
     });
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
-      if (i18n[lang][key]) el.textContent = i18n[lang][key];
+      if (!i18n[lang][key]) return;
+      const text = i18n[lang][key];
+      el.textContent = el.classList.contains('project-card__desc') ? truncateCard(text) : text;
     });
+  }
+
+  function truncateCard(text, max = 526) {
+    if (!text || text.length <= max) return text;
+    return text.slice(0, max).replace(/\s+\S*$/, '') + '…';
   }
 
   // Helper: get localised project description
@@ -1441,12 +1525,15 @@
 
   // ── Scroll to #work on load if hash is present ───────────────────
   if (window.location.hash === '#work') {
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const el = document.getElementById('work');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    });
+    const scrollToWork = () => {
+      const el = document.getElementById('work');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    };
+    if (document.readyState === 'complete') {
+      setTimeout(scrollToWork, 100);
+    } else {
+      window.addEventListener('load', () => setTimeout(scrollToWork, 100));
+    }
   }
 
   // ── Hamburger menu ────────────────────────────────────────────────
@@ -1476,6 +1563,14 @@
     const hint = document.getElementById('scroll-hint');
     if (hint) hint.style.opacity = window.scrollY > 40 ? '0' : '1';
   }, { passive: true });
+
+  // ── Hero static cards (mobile): random images from trail pool ────
+  (function () {
+    const staticCards = document.querySelectorAll('.hero__static-card img');
+    if (!staticCards.length || !trailImgs) return;
+    const shuffled = trailImgs.slice().sort(() => Math.random() - 0.5);
+    staticCards.forEach((img, i) => { img.src = shuffled[i % shuffled.length]; });
+  })();
 
   // ── Garabato nav animation ───────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function () {
@@ -1650,40 +1745,70 @@
     const projectData = [
       {
         title: 'YoPRO Epic Challenge',
-        description: 'I led a project for YoPRO, a protein yogurt for athletes. The brand wanted to make a statement with an impactful action. We achieved this alongside the sports influencer Valentí Sanjuan, who helped Àlex Roca accomplish a seemingly impossible challenge: completing a marathon with cerebral palsy. The action went viral; the brand had a huge impact on social media, YoPRO gained over 40K followers, and most importantly, we managed to help Àlex raise awareness of his illness on countless prime-time TV shows.',
-        description_es: 'Lideré un proyecto para YoPRO, un yogur proteico para deportistas. La marca quería hacer una declaración de intenciones con una acción de impacto. Lo logramos junto al influencer deportivo Valentí Sanjuan, que ayudó a Àlex Roca a superar un reto aparentemente imposible: completar una maratón con parálisis cerebral. La acción se viralizó; la marca tuvo un impacto enorme en redes sociales, YoPRO superó los 40K seguidores y, lo más importante, ayudamos a Àlex a visibilizar su enfermedad en multitud de programas de televisión en prime time.',
+        description: 'I led the social media strategy for Danone\'s new brand, YoPRO, a protein yogurt for athletes. Our challenge was to raise brand awareness and grow their community. Marató Barcelona presented a great opportunity to leverage the brand message and make a statement that would connect with their audience. We achieved this alongside Valentí Sanjuan and Álex Roca, who set out to accomplish a seemingly impossible challenge: completing a marathon while living with cerebral palsy. The action went viral; the brand had a huge impact on social media. YoPRO gained over 40K followers, and most importantly, we managed to help Álex raise awareness of his illness on countless prime-time TV shows by talking about his feat, making it clear that, like YoPRO, the only limit is the one you set for yourself.',
+        description_es: 'Lideré la estrategia de redes sociales de la nueva marca de Danone, YoPRO, un yogur proteico para deportistas. Nuestro reto era aumentar el conocimiento de marca y hacer crecer su comunidad. La Marató de Barcelona presentó una gran oportunidad para aprovechar el mensaje de marca y hacer una declaración que conectara con su audiencia. Lo logramos junto a Valentí Sanjuan y Álex Roca, que se propusieron superar un reto aparentemente imposible: completar una maratón con parálisis cerebral. La acción se viralizó y tuvo un impacto enorme en redes sociales. YoPRO superó los 40K seguidores y, lo más importante, ayudamos a Álex a visibilizar su enfermedad en multitud de programas de televisión en prime time, dejando claro que, como YoPRO, el único límite es el que uno mismo se pone.',
         year: '2023', client: 'YoPRO · Food & Drinks',
         tags: ['Content Strategy', 'Brand Voice'],
         video: 'https://play.gumlet.io/embed/69bf22b04fe0bcfaae46a4b7?background=false&autoplay=false&loop=false&disable_player_controls=false',
-        images: 2, // placeholder count — replace with real src arrays
+        imageSrcs: [
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/yopro-01.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/yopro-02.svg',
+        ],
       },
       {
-        title: 'Project Two',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        year: '2023', client: 'Client · Industry',
-        tags: ['Copywriting', 'Editorial'],
-        images: 2,
+        title: 'Hunt or Be Hunted',
+        description: '1,600 volunteers, more than 100 skins, and two months of tattooing to create something irreversible: the first animated short film made entirely with tattoos. \'Hunt or Be Hunted,\' a 2016 campaign by Jägermeister, turned human bodies into stop-motion frames, translating the brand\'s philosophy of instinct and commitment into a physical medium. Over two months, participants were tattooed with fragments of an illustrated narrative, later photographed and sequenced into a film. I led the social media strategy for the campaign in Spain as part of VICE Virtue, focusing on amplifying the process as much as the final piece—documenting the people, endurance, and scale behind each frame to drive cultural relevance and sustained engagement.',
+        description_es: '1.600 voluntarios, más de 100 pieles y dos meses de tatuajes para crear algo irreversible: el primer cortometraje de animación hecho íntegramente con tatuajes. \'Hunt or Be Hunted\' —campaña de Jägermeister de 2016— convirtió cuerpos humanos en fotogramas de stop-motion, traduciendo la filosofía de instinto y compromiso de la marca en un soporte físico. Durante dos meses, los participantes fueron tatuados con fragmentos de una narrativa ilustrada que se fotografió y secuenció para crear el filme. Lideré la estrategia de redes sociales de la campaña en España como parte de VICE Virtue, con el foco en amplificar el proceso tanto como la pieza final: documentando a las personas, la resistencia y la escala que había detrás de cada fotograma para generar relevancia cultural y engagement sostenido.',
+        year: '2016', client: 'Jagermeister · Food & Drinks',
+        tags: ['Content Strategy', 'Social Media'],
+        video: 'https://play.gumlet.io/embed/69c1ccb924ffd038ef7e7ece?background=false&autoplay=false&loop=false&disable_player_controls=false',
+        imageSrcs: [
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/jagermeister-01.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/jagermeister-02.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/jagermeister-03.svg',
+        ],
       },
       {
-        title: 'Project Three',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        year: '2024', client: 'Client · Industry',
-        tags: ['Social Media', 'Brand Voice'],
-        images: 2,
-      },
-      {
-        title: 'Project Four',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        year: '2024', client: 'Client · Industry',
-        tags: ['Content Strategy'],
-        images: 2,
-      },
-      {
-        title: 'Project Five',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        year: '2025', client: 'Client · Industry',
+        title: 'SAE Rebrand',
+        description: 'At SAE Institute, I was responsible for leading the center\'s communications to attract new students to its Creative Media programs. My role focused on shaping the brand\'s messaging across digital channels and supporting the repositioning and rebranding of the institute to better connect with prospective students and the creative community.',
+        description_es: 'En SAE Institute, fui responsable de liderar las comunicaciones del centro para atraer nuevos estudiantes a sus programas de Creative Media. Mi rol se centró en dar forma al mensaje de marca en los canales digitales y en apoyar el reposicionamiento y rebranding del instituto para conectar mejor con los futuros estudiantes y la comunidad creativa.',
+        year: '2021', client: 'SAE Creative Media Education',
         tags: ['Brand Voice', 'Editorial'],
-        images: 2,
+        video: 'https://play.gumlet.io/embed/69befc5661788532c93f8c8d?background=false&autoplay=false&loop=false&disable_player_controls=false',
+        imageSrcs: [
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/sae-portada6.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/sae-portada7.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/sae-01.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/sae-02.svg',
+        ],
+      },
+      {
+        title: 'Illegal People, Legal Clothes',
+        description: 'I collaborated on the Top Manta project during its fundraising phase, supporting the storytelling and visibility of the campaign that helped the collective of street vendors in Barcelona launch their own clothing brand. The initiative mobilized public support and raised the capital needed to start a social fashion project built around dignity, self-employment, and migrant rights.',
+        description_es: 'Colaboré en el proyecto Top Manta durante su fase de recaudación de fondos, apoyando el storytelling y la visibilidad de la campaña que ayudó al colectivo de manteros de Barcelona a lanzar su propia marca de ropa. La iniciativa movilizó el apoyo ciudadano y recaudó el capital necesario para poner en marcha un proyecto de moda social basado en la dignidad, el autoempleo y los derechos de los migrantes.',
+        year: '2020', client: 'TOP MANTA · Retail',
+        tags: ['Content Strategy'],
+        video: 'https://play.gumlet.io/embed/69e9371c8dd5a216e2a34329?background=false&autoplay=false&loop=false&disable_player_controls=false',
+        imageSrcs: [
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/topmanta-02.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/topmanta-03.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/topmanta-05.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/topmanta-04.svg',
+        ],
+      },
+      {
+        title: 'ZIGChain Summit 2026',
+        description: 'I led the content strategy, brand voice, and social media for ZIGChain Summit 2026 — the brand\'s flagship event in the Web3 space. My role covered the full communications arc: from pre-event build-up and speaker amplification to live coverage and post-event content. The goal was to translate complex blockchain concepts into community-driven storytelling, positioning ZIGChain as a thought leader within the Web3 ecosystem while driving engagement across channels and expanding the brand\'s reach beyond its existing audience.',
+        description_es: 'Lideré la estrategia de contenido, brand voice y redes sociales del ZIGChain Summit 2026, el evento estrella de la marca en el espacio Web3. Mi rol abarcó todo el arco comunicativo: desde la construcción previa al evento y la amplificación de ponentes hasta la cobertura en directo y el contenido post-evento. El objetivo era traducir conceptos complejos de blockchain en storytelling orientado a la comunidad, posicionando a ZIGChain como referente en el ecosistema Web3 e impulsando el engagement en todos los canales.',
+        year: '2026', client: 'ZIGChain · Web3',
+        tags: ['Content Strategy', 'Brand Voice', 'Social Media'],
+        video: 'https://play.gumlet.io/embed/69e9673823b7b71604e312d0?background=false&autoplay=false&loop=false&disable_player_controls=false',
+        imageSrcs: [
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/zigchain-01.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/zigchain-03.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/zigchain-04.svg',
+          'https://raw.githubusercontent.com/isaakson7/portfolio/main/zigchain-05.svg',
+        ],
       },
     ];
 
@@ -1698,7 +1823,11 @@
       // Media slides: video first, then images
       const mediaSlides = [];
       if (p.video) mediaSlides.push({ type: 'video' });
-      for (let j = 0; j < (p.images || 0); j++) mediaSlides.push({ type: 'image', n: j + 1 });
+      if (p.imageSrcs && p.imageSrcs.length) {
+        p.imageSrcs.forEach(src => mediaSlides.push({ type: 'image', src }));
+      } else {
+        for (let j = 0; j < (p.images || 0); j++) mediaSlides.push({ type: 'image', n: j + 1 });
+      }
       total = mediaSlides.length;
 
       mediaSlides.forEach((s, i) => {
@@ -1710,7 +1839,9 @@
           slide.innerHTML = `<iframe loading="lazy" title="Gumlet video player" src="${p.video}"
             style="border:none;position:absolute;top:0;left:0;width:100%;height:100%;"
             referrerpolicy="origin"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen;"></iframe>`;
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write;"></iframe>`;
+        } else if (s.src) {
+          slide.innerHTML = `<img src="${s.src}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;">`;
         } else {
           slide.innerHTML = `<img src="https://placehold.co/1600x900/e8e8e6/aaaaaa?text=Project+image+${s.n}" alt="Project image ${s.n}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
         }
@@ -1728,7 +1859,7 @@
       if (descEl) {
         const tags = (p.tags || []).map(t => `<span class="modal__desc-tag">${t}</span>`).join('');
         descEl.innerHTML = `
-          <p class="modal__desc-text">${p.description || ''}</p>
+          <p class="modal__desc-text">${getDesc(p)}</p>
           <div class="modal__desc-meta">
             <div class="modal__desc-meta-item">
               <span class="modal__desc-meta-label">Year</span>
@@ -1744,6 +1875,12 @@
     }
 
     function goTo(idx) {
+      // Stop video only on the slide being left, not on all slides
+      const leavingSlide = track.children[current];
+      if (leavingSlide) {
+        const iframe = leavingSlide.querySelector('iframe');
+        if (iframe) iframe.src = iframe.src;
+      }
       current = idx;
       track.style.transform = `translateX(-${idx * 100}%)`;
       counter.textContent = `${idx + 1} / ${total}`;
@@ -1755,6 +1892,7 @@
     function openModal(idx) {
       const p = projectData[idx];
       titleEl.textContent = p.title;
+      current = -1; // ensure goTo(0) doesn't reset freshly-built iframe on open
       buildSlides(p);
       goTo(0);
       modal.removeAttribute('hidden');
